@@ -39,8 +39,8 @@ class Block {
     
             underTargetHash = keccakHash(header + nonce);
 
-            console.log('underTargetHash', underTargetHash);
-            console.log('target', target);
+            //console.log('underTargetHash', underTargetHash);
+            //console.log('target', target);
 
         } while (underTargetHash > target);
 
@@ -56,10 +56,3 @@ class Block {
 }
 
 module.exports = Block;
-
-const block = Block.mineBlock({
-    lastBlock: Block.genesis(),
-    beneficiary: 'foo'
-});
-
-console.log('block', block);
