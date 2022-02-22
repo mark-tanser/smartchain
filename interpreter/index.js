@@ -9,8 +9,24 @@ const GT = 'GT'; // greater than
 const EQ = 'EQ'; // equal to
 const AND = 'AND';
 const OR = 'OR';
-const JUMP = 'JUMP'; // moves counter
+const JUMP = 'JUMP'; // jump to destination
 const JUMPI = 'JUMPI'; // jump if 1
+
+const OPCODE_MAP = {
+    STOP,
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    PUSH,
+    LT,
+    GT,
+    EQ,
+    AND,
+    OR,
+    JUMP,
+    JUMPI
+};
 
 const EXECUTION_COMPLETE = 'Execution complete';
 const EXECUTION_LIMIT = 10000;
@@ -120,6 +136,10 @@ runCode(code) {
   }
 }
 
+Interpreter.OPCODE_MAP = OPCODE_MAP;
+module.exports = {Interpreter, EXECUTION_LIMIT};
+
+/*
 let code;
 let result;
 
@@ -163,7 +183,7 @@ code = [PUSH, 6, JUMP, PUSH, 0, JUMP, PUSH, 'jump successful', STOP];
 result = new Interpreter().runCode(code);
 console.log('Result of JUMP:', result);
 
-code = [PUSH, 8, PUSH, 1, JUMPI, PUSH, 0, JUMP, PUSH, 'jumpi successful', STOP];
+code = [PUSH, 8, PUSH, 1, JUMPI, PUSH, 0, JUMP, PUSH, 'jump successful', STOP];
 result = new Interpreter().runCode(code);
 console.log('Result of JUMPI:', result);
 
@@ -187,3 +207,4 @@ try {
 } catch (error) {
     console.log('Expected Invalid execution error', error.message)
 }
+*/
