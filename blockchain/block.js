@@ -48,6 +48,7 @@ class Block {
                 number: lastBlock.blockHeaders.number + 1,
                 timestamp
             };
+            //console.log('truncatedBlockHeaders:', truncatedBlockHeaders);
             header = keccakHash(truncatedBlockHeaders);
             nonce = Math.floor(Math.random() * MAX_NONCE_VALUE);
     
@@ -65,7 +66,7 @@ class Block {
     }
 
     static genesis() {
-        return new this(GENESIS_DATA);
+        return new Block(GENESIS_DATA);
     }
 
     static validateBlock({ lastBlock, block }) {
@@ -95,7 +96,7 @@ class Block {
             // difficulty increases or descreases by 1
             if (Math.abs(lastBlock.blockHeaders.difficulty - block.blockHeaders.difficulty) > 1) {
                 return reject(
-                    new Error('Thedifficulty must only adjust by 1')
+                    new Error('The difficulty must only adjust by 1')
                 );
             }
 
