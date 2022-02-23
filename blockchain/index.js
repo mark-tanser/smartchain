@@ -5,7 +5,7 @@ class Blockchain {
         this.chain = [Block.genesis()];
     }
 
-    addBLock({ block }) {
+    addBlock({ block }) {
         this.chain.push(block);
     }
 }
@@ -21,7 +21,7 @@ for (let i=0; i<1000; i++) {
         lastBlock,
         beneficiary: 'beneficiary'
     });
-    blockchain.addBLock({ block });
+    blockchain.addBLock({ block });\
 
     console.log('block', block);
 }
