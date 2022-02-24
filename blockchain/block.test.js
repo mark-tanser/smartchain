@@ -1,4 +1,3 @@
-const { it, expect } = require('@jest/globals');
 const { keccakHash } = require('../util');
 const Block = require('./block');
 
