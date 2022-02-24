@@ -14,24 +14,33 @@ class Blockchain {
                 this.chain.push(block);
 
                 return resolve();
-            }).catch(error => reject(error));
+            }).catch(reject);
+        });
+    }
+
+    replaceChain({ chain }) {
+        return new Promise(async (resolve, reject) => {
+            for (let i=0; i<chain.length; i++) {
+                const block = chain[i];
+                const lastBlockIndex = i-1;
+                const lastBlock = lastBlockIndex >= 0
+                    ? chain[i-1]
+                    : null
+                
+                try {
+                    await Block.validateBlock({ lastBlock, block });
+                } catch (error) {
+                    return reject(error);
+                }
+
+                console.log(`*-- Validated block number: ${block.blockHeaders.number}`);
+            }
+
+            this.chain = chain;
+
+            return resolve();
         });
     }
 }
 
-module.exports = Blockchain
-
-/*
-const blockchain = new Blockchain();
-
-for (let i=0; i<1000; i++) {
-    const lastBlock = blockchain.chain[blockchain.chain.length-1];
-    const block = Block.mineBlock({
-        lastBlock,
-        beneficiary: 'beneficiary'
-    });
-    blockchain.addBLock({ block });\
-
-    console.log('block', block);
-}
-*/
+module.exports = Blockchain;
