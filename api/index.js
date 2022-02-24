@@ -1,12 +1,21 @@
 const express = require('express');
 const request = require('request');
+
+const Account = require('../account');
 const Blockchain = require('../blockchain');
 const Block = require('../blockchain/block');
 const PubSub = require('./pubsub');
+const Transaction = require('../transaction');
+const TransactionQueue = require('../transaction/transaction-queue');
 
 const app = express();
 const blockchain = new Blockchain();
+const transactionQueue = new TransactionQueue();
 const pubsub = new PubSub({ blockchain });
+const account = new Account();
+const transaction = Transaction.createTransaction({ account });
+
+transactionQueue.add(transaction);
 
 app.get('/blockchain', (req, res, next) => {
     // return the blockchain as it currently exists
@@ -17,7 +26,10 @@ app.get('/blockchain', (req, res, next) => {
 
 app.get('/blockchain/mine', (req, res, next) => {
     const lastBlock = blockchain.chain[blockchain.chain.length-1];
-    const block = Block.mineBlock({ lastBlock });
+    const block = Block.mineBlock({ 
+        lastBlock,
+        beneficiary: account.address
+     });
 
 blockchain.addBlock({ block })
     .then(() => {
