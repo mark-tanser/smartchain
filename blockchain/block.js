@@ -87,7 +87,7 @@ class Block {
             }
 
             // block header number increases by one
-            if (block.blockHEaders.number !== lastBlock.blockHEaders.number + 1) {
+            if (block.blockHeaders.number !== lastBlock.blockHeaders.number + 1) {
                 return reject(
                     new Error('The block must increment the number by 1')
                 );
